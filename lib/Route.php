@@ -23,6 +23,15 @@ class Route
         $uri = $ SERVER['REQUEST URI'];
         $uri = trim($uri, '/');
 
-        echo $uri;
+        $method = $_SERVER['REQUEST_METHOD'];
+
+        foreach (self:: $routes [$method] as $route => $callback) {
+            if($route == $uri){
+                $callback();
+                return;
+            } 
+        }
+        
+        echo '104 Not Found';
     }
 }    
